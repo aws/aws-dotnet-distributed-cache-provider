@@ -186,7 +186,7 @@ Follow us on twitter!
 
 The AWS .NET Distributed Cache Provider relies on the [AWS SDK for .NET](https://github.com/aws/aws-sdk-net) for communicating with AWS. Refer to the [security section](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/security.html) in the [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html) for more information.
 
-If you discover a potential security issue, refer to the [security policy](https://github.com/awslabs/aws-dotnet-distributed-cache-provider/security/policy) for reporting information.
+If you discover a potential security issue, refer to the [security policy](https://github.com/aws/aws-dotnet-distributed-cache-provider/security/policy) for reporting information.
 
 # License
 
