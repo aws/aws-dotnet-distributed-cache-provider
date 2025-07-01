@@ -1,3 +1,8 @@
+## Release 2025-07-01
+
+### AWS.AspNetCore.DistributedCacheProvider (1.0.0)
+* This marks the first stable release of AWS .NET Distributed Cache Provider which is now generally available.
+
 ## Release 2025-04-28
 
 ### AWS.AspNetCore.DistributedCacheProvider (0.21.0-preview)
