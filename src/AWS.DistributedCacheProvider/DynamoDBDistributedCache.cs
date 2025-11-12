@@ -144,8 +144,6 @@ namespace AWS.DistributedCacheProvider
             }
         }
 
-        private const string _userAgentHeader = "User-Agent";
-
         private static readonly string _userAgentString = $"lib/DynamoDBDistributedCache#{_assemblyVersion}";
 
         /// <summary>
@@ -153,9 +151,11 @@ namespace AWS.DistributedCacheProvider
         /// </summary>
         void DynamoDBSessionStateStore_BeforeRequestEvent(object sender, RequestEventArgs e)
         {
-            if (e is not WebServiceRequestEventArgs args || !args.Headers.ContainsKey(_userAgentHeader) || args.Headers[_userAgentHeader].Contains(_userAgentString))
-                return;
-            args.Headers[_userAgentHeader] = args.Headers[_userAgentHeader] + " " + _userAgentString;
+            WebServiceRequestEventArgs? args = e as WebServiceRequestEventArgs;
+            if (args != null && args.Request is Amazon.Runtime.Internal.IAmazonWebServiceRequest internalRequest && !internalRequest.UserAgentDetails.GetCustomUserAgentComponents().Contains(_userAgentString))
+            {
+                internalRequest.UserAgentDetails.AddUserAgentComponent(_userAgentString);
+            }
         }
 
         /// <summary>
