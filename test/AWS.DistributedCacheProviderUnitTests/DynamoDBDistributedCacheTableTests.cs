@@ -1,5 +1,6 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
+using AWS.DistributedCacheProvider;
 using AWS.DistributedCacheProvider.Internal;
 using Moq;
 using Xunit;
@@ -15,7 +16,7 @@ namespace AWS.DistributedCacheProviderUnitTests
         /// Describe table throws a ResourceNotFoundException, and the create table boolean is turned off. Expect Exception
         /// </summary>
         [Fact]
-        public void CreateIfNotExists_TableDoesNotExist_DoNotCreate_ExpectException()
+        public async Task CreateIfNotExists_TableDoesNotExist_DoNotCreate_ExpectException()
         {
             var moqClient = new Moq.Mock<IAmazonDynamoDB>();
             //mock describe table that table does not exist
@@ -23,14 +24,14 @@ namespace AWS.DistributedCacheProviderUnitTests
                 .Throws(new ResourceNotFoundException(""));
             var creator = new DynamoDBTableCreator();
             //create table, set create boolean to false.
-            Assert.ThrowsAsync<AmazonDynamoDBException>(() => creator.CreateTableIfNotExistsAsync(moqClient.Object, "", false, "", ""));
+            await Assert.ThrowsAsync<InvalidTableException>(() => creator.CreateTableIfNotExistsAsync(moqClient.Object, "", false, "", ""));
         }
 
         /// <summary>
         /// Describe table throws a ResourceNotFoundException, and the create table is turned on. Do not expect Exception
         /// </summary>
         [Fact]
-        public async void CreateIfNotExists_TableDoesNotExist_Create_NoException()
+        public async Task CreateIfNotExists_TableDoesNotExist_Create_NoException()
         {
             var moqClient = new Moq.Mock<IAmazonDynamoDB>();
             //mock describe table that table does not exist. Then the next time return an active table
@@ -54,7 +55,7 @@ namespace AWS.DistributedCacheProviderUnitTests
         /// Describe table returns an existing table. Table is valid to be used for a cache. No exception
         /// </summary>
         [Fact]
-        public async void TableExists_Valid()
+        public async Task TableExists_Valid()
         {
             var keyName = "key";
             var moqClient = new Moq.Mock<IAmazonDynamoDB>();
@@ -91,7 +92,7 @@ namespace AWS.DistributedCacheProviderUnitTests
         /// Describe table returns an existing table. Table is invalid to be used for a cache becuase it has a composite key. Exception
         /// </summary>
         [Fact]
-        public void TableExists_TooManyKeys_Invalid()
+        public async Task TableExists_TooManyKeys_Invalid()
         {
             var key1 = "key";
             var key2 = "key2";
@@ -112,7 +113,7 @@ namespace AWS.DistributedCacheProviderUnitTests
                             new KeySchemaElement
                             {
                                 AttributeName = key2,
-                                KeyType = KeyType.HASH
+                                KeyType = KeyType.RANGE
                             }
                         },
                         AttributeDefinitions = new List<AttributeDefinition>
@@ -131,14 +132,14 @@ namespace AWS.DistributedCacheProviderUnitTests
                     }
                 }));
             var creator = new DynamoDBTableCreator();
-            Assert.ThrowsAsync<AmazonDynamoDBException>(() => creator.CreateTableIfNotExistsAsync(moqClient.Object, "", false, "", ""));
+            await Assert.ThrowsAsync<InvalidTableException>(() => creator.CreateTableIfNotExistsAsync(moqClient.Object, "", false, "", ""));
         }
 
         /// <summary>
         /// Describe table returns an existing table. Table is invalid to be used for a cache becuase it has a bad key attribute type. Exception
         /// </summary>
         [Fact]
-        public void TableExists_BadKeyAttributeType_Invalid()
+        public async Task TableExists_BadKeyAttributeType_Invalid()
         {
             var key = "key";
             var moqClient = new Moq.Mock<IAmazonDynamoDB>();
@@ -168,14 +169,14 @@ namespace AWS.DistributedCacheProviderUnitTests
                     }
                 }));
             var creator = new DynamoDBTableCreator();
-            Assert.ThrowsAsync<AmazonDynamoDBException>(() => creator.CreateTableIfNotExistsAsync(moqClient.Object, "", false, "", ""));
+            await Assert.ThrowsAsync<InvalidTableException>(() => creator.CreateTableIfNotExistsAsync(moqClient.Object, "", false, "", ""));
         }
 
         /// <summary>
         /// Describe table returns an existing table. Table is invalid to be used for a cache becuase it has a bad key type. Exception
         /// </summary>
         [Fact]
-        public void TableExists_BadKeyType_Invalid()
+        public async Task TableExists_BadKeyType_Invalid()
         {
             var key = "key";
             var moqClient = new Moq.Mock<IAmazonDynamoDB>();
@@ -204,7 +205,7 @@ namespace AWS.DistributedCacheProviderUnitTests
                     }
                 }));
             var creator = new DynamoDBTableCreator();
-            Assert.ThrowsAsync<AmazonDynamoDBException>(() => creator.CreateTableIfNotExistsAsync(moqClient.Object, "", false, "", ""));
+            await Assert.ThrowsAsync<InvalidTableException>(() => creator.CreateTableIfNotExistsAsync(moqClient.Object, "", false, "", ""));
         }
     }
 }

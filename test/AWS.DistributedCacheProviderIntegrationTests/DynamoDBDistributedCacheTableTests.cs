@@ -16,7 +16,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         /// Tests that our factory will create a Table if it does not already exist.
         /// </summary>
         [Fact]
-        public async void CreateTable()
+        public async Task CreateTable()
         {
             var tableName = IntegrationTestUtils.GetFullTestName();
             var client = new AmazonDynamoDBClient();
@@ -57,7 +57,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         /// Tests that our factory will create a Table with a custom primary key if the table does not already exist.
         /// </summary>
         [Fact]
-        public async void CreateTableWithCustomPrimaryKey()
+        public async Task CreateTableWithCustomPrimaryKey()
         {
             var tableName = IntegrationTestUtils.GetFullTestName();
             var primaryKeyName = "MyKeyName";
@@ -99,7 +99,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         /// Test that our Cache can load a table that already exists
         /// </summary>
         [Fact]
-        public async void LoadValidTableTest()
+        public async Task LoadValidTableTest()
         {
             //key must match what the cache expects the key to be. Otherwise an error will be thrown when
             //we validate that the table is valid when we make a CRUD call.
@@ -151,7 +151,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         /// Tests that our cache can reject a table if it is invalid. Invalid becuase Key is non-composite
         /// </summary>
         [Fact]
-        public async void LoadInvalidTable_TooManyKeysTest()
+        public async Task LoadInvalidTable_TooManyKeysTest()
         {
             var key1 = "key";
             var key2 = "key2";
@@ -212,7 +212,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         /// Tests that our cache can reject a table if it is invalid. Invalid becuase Key is not a String
         /// </summary>
         [Fact]
-        public async void LoadInvalidTable_BadKeyTypeTest()
+        public async Task LoadInvalidTable_BadKeyTypeTest()
         {
             var key = "key";
             var tableName = IntegrationTestUtils.GetFullTestName();
@@ -262,7 +262,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         /// library
         /// </summary>
         [Fact]
-        public async void LoadTableWithDifferentPrimaryKeyThanDefault()
+        public async Task LoadTableWithDifferentPrimaryKeyThanDefault()
         {
             //key must match what the cache expects the key to be. Otherwise an error will be thrown when
             //we validate that the table is valid when we make a CRUD call.
@@ -314,7 +314,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         /// Tests that DynamoDBTableCreator sets the DynamoDB TTL feature to the attribute the user specifies
         /// </summary>
         [Fact]
-        public async void CreateTableWithCustomTTLKey()
+        public async Task CreateTableWithCustomTTLKey()
         {
             var ttl_attribute_name = "MyTTLAttributeName";
             var tableName = IntegrationTestUtils.GetFullTestName();
@@ -358,7 +358,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         /// attribute.
         /// </summary>
         [Fact]
-        public async void LoadTableWithCustomTTLKey()
+        public async Task LoadTableWithCustomTTLKey()
         {
             var ttl_attribute_name = "MyTTLAttributeName";
             var key = DynamoDBTableCreator.DEFAULT_PARTITION_KEY;
