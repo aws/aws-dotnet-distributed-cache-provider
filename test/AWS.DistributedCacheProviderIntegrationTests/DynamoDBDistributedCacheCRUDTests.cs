@@ -69,7 +69,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
 
         /*Tests that relate to calculating different TTL attributes*/
         [Fact]
-        public async void Set_NullTTLOptions()
+        public async Task Set_NullTTLOptions()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -81,7 +81,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Set_OnlyWindowOptionSet_TTLWithNoDeadline()
+        public async Task Set_OnlyWindowOptionSet_TTLWithNoDeadline()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -102,7 +102,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Set_OnlyRelativeOptionSet_DeadlineAndTTLSet()
+        public async Task Set_OnlyRelativeOptionSet_DeadlineAndTTLSet()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -120,7 +120,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Set_RelativeAndWindow_AllSet()
+        public async Task Set_RelativeAndWindow_AllSet()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -147,7 +147,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Set_OnlyAbsoluteOptionSet_DeadlineAndTTLSet()
+        public async Task Set_OnlyAbsoluteOptionSet_DeadlineAndTTLSet()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -165,7 +165,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Set_AbsoluteAndWindow_AllSet()
+        public async Task Set_AbsoluteAndWindow_AllSet()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -193,7 +193,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Set_AbsoluteAndRelativeSet_RelativeTakesPrecedence()
+        public async Task Set_AbsoluteAndRelativeSet_RelativeTakesPrecedence()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -216,7 +216,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Set_AllOptionsUsed()
+        public async Task Set_AllOptionsUsed()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -246,7 +246,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
 
         //There are three columns related to TTL: TTL_DATE, TTL_DEADLINE, TTL_WINDOW. We need to test combinations of all 3
         [Fact]
-        public async void Refresh_AllNullColumns()
+        public async Task Refresh_AllNullColumns()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -263,7 +263,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         //If TTL_DATE is not null, but TTL_WINDOW is, then TTL_DATE and TTL_DEADLINE should be equal.
         //Even if they are not, Refresh() is meaningless
         [Fact]
-        public async void Refresh_TTLWindowIsNull_RefreshChangesNothing()
+        public async Task Refresh_TTLWindowIsNull_RefreshChangesNothing()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -279,7 +279,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Refresh_MoveTTLWithinDeadline()
+        public async Task Refresh_MoveTTLWithinDeadline()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -305,7 +305,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Refresh_MoveTTLToDeadline()
+        public async Task Refresh_MoveTTLToDeadline()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());
@@ -328,7 +328,7 @@ namespace AWS.DistributedCacheProviderIntegrationTests
         }
 
         [Fact]
-        public async void Get_Also_Refreshes()
+        public async Task Get_Also_Refreshes()
         {
             var key = RandomString();
             var value = Encoding.ASCII.GetBytes(RandomString());

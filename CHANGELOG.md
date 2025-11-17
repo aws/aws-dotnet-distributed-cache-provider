@@ -1,3 +1,8 @@
+## Release 2025-11-17
+
+### AWS.AspNetCore.DistributedCacheProvider (1.0.1)
+* Update AWS SDK Dependencies
+
 ## Release 2025-07-01
 
 ### AWS.AspNetCore.DistributedCacheProvider (1.0.0)
