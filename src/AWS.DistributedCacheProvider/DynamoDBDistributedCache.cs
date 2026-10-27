@@ -467,15 +467,17 @@ namespace AWS.DistributedCacheProvider
                     {
                         TableName = _tableName,
                         Key = CreateDictionaryWithKey(key),
-                        AttributeUpdates = new Dictionary<string, AttributeValueUpdate>
+                        //On refresh we only move the _ttlDateAttributeName. the TTL_WINDOW and TTL_DEADLINE stay the same.
+                        //A placeholder name is used for the attribute because _ttlDateAttributeName is user-configurable and
+                        //could otherwise collide with a DynamoDB reserved word.
+                        UpdateExpression = "SET #ttlDate = :ttlDate",
+                        ExpressionAttributeNames = new Dictionary<string, string>
                         {
-                            //On refresh we only move the _ttlDateAttributeName. the TTL_WINDOW and TTL_DEADLINE stay the same.
-                            {
-                                _ttlDateAttributeName, new AttributeValueUpdate
-                                {
-                                    Value = ttlAttribute
-                                }
-                            }
+                            { "#ttlDate", _ttlDateAttributeName }
+                        },
+                        ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                        {
+                            { ":ttlDate", ttlAttribute }
                         }
                     };
                     try
