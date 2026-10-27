@@ -1,3 +1,8 @@
+## Release 2026-10-27
+
+### AWS.AspNetCore.DistributedCacheProvider (1.0.3)
+* Replaced the deprecated AttributeUpdates parameter with an UpdateExpression when refreshing an item's TTL
+
 ## Release 2026-03-19
 
 ### AWS.AspNetCore.DistributedCacheProvider (1.0.2)
