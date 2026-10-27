@@ -1,0 +1,11 @@
+{
+  "Projects": [
+    {
+      "Name": "AWS.AspNetCore.DistributedCacheProvider",
+      "Type": "Patch",
+      "ChangelogMessages": [
+        "Replaced the deprecated AttributeUpdates parameter with an UpdateExpression when refreshing an item's TTL"
+      ]
+    }
+  ]
+}
